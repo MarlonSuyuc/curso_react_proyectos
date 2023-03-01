@@ -11,9 +11,9 @@ const App = () => {
   // const [imgUrl, setImgUrl] = useState() // variable de estado utilizado => useCatImage.js en custom hook
   const [factError, setFactError] = useState()
   const { imgUrl } = useCatImage({ fact })
-  console.log(imgUrl)
+  const [palabra, setpalabra] = useState()
 
-  // ----------primera forma con solo un useEffect----------
+  // ----------Diferentes formas de hacerlo----------
   // useEffect(() => {
   //   fetch(CAT_ENPOINT_RANDOM_FACT)
   //     .then(res => res.json())
@@ -89,6 +89,7 @@ const App = () => {
   // }
 
   // ----------tercera forma reutilizar logica => esta en la carpeta servicer facts.js----------
+
   useEffect(() => {
     getRandomFact() // áca estamos llamando al custom hook
       .then((data) => {
@@ -102,7 +103,7 @@ const App = () => {
   }, [])
 
 
-  // useEffect(() => { // Codigo utilizado en el custom hook
+  // useEffect(() => { // Codigo utilizado en el custom hook use CatImage.js
   //   if (!fact) return
 
   //   // const primerapalabra = fact.split(" ")[0] // primera palabra
@@ -131,13 +132,30 @@ const App = () => {
       })
   }
 
+  // pala la palabra
+  useEffect(() => {
+    if (!fact) return
+    const palabra = fact.split(" ", 3).join(" ") // primeras 3 palabra
+    fetch(`https://cataas.com/cat/says/${palabra}`)
+      .then(res => {
+        const { url } = res
+        setpalabra(url)
+      })
+  }, [fact])
+
   return (
     <main>
       <h1>App</h1>
       <button onClick={handleClick}>Obtener nuevo Fact</button>
       {fact && <p>{fact}</p>}
-      {imgUrl && <img src={`${CAT_PREFIX_IMAGE_URL}${imgUrl}`} alt={`imagen extraida usando las primeras 3 palabras de ${fact}`} />}
-      {factError && <p>{factError}</p>}
+      <section style={{ display: "flex", gap: "1rem" }}>
+
+        {imgUrl && <img src={`${CAT_PREFIX_IMAGE_URL}${imgUrl}`} alt={`imagen extraida usando las primeras 3 palabras de ${fact}`} />}
+        {factError && <p>{factError}</p>}
+
+        {/* <img src={palabra} alt="" /> */}
+      </section>
+
     </main >
   )
 }
