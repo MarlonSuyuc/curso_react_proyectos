@@ -1,0 +1,8 @@
+01-twitter_follow-card ------------------> Introducción a React
+02: Tic Tac Toe -------------------------> React Hooks: useState
+03: Mouse Follower ----------------------> React Hooks: useState y useEffect
+04-entrevista-react ---------------------> Fetching de datos y Custom Hooks
+05-react-buscador-peliculas -------------> React Hooks: useRef, useMemo, useCallback
+06-shopping-cart ------------------------> React Hooks: useContext, useReducer, useId
+07-midu-router --------------------------> React Router + Lazy Loading
+08-TodoList-React_TypeScript ------------> React + TypeScript (Día 01): props y state)
